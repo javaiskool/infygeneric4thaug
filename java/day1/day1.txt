@@ -1,0 +1,229 @@
+working principle of computer
+input - process - output
+input - raw data and info.
+output - expected outcome
+process - we will write the instructions
+
+to write instructions - program
+program - set of instructions for performing particular task, solution to a problem
+instructions - step by step, precise
+logic - right direction of thinking
+
+general programming concepts 
+1. sequencial execution - the statements are executed in the same sequence they are written
+2. selection
+3. iteration
+
+Java programming language
+language - medium of communication
+has - vocab, grammer (syntax), style
+efficiency - accuracy, speed of execution, memory utilization
+
+JAVA program - source code - simple structured English language following particular programming (JAVA)  - extension .java
+
+Java program(English) - converted - machine understandable (binary)
+conversion has 2 steps
+compilation - bytecode generation - machine independent  .class
+interpretation - executable code generation - machine dependent
+
+user - application software - system software - OS - computer hardware
+JVM, JRE, JDK
+
+JAVA concepts
+1. general programming concepts
+2. object oriented programming concepts
+3. JAVA concepts
+implementation of these concepts wrt JAVA
+
+features of JAVA
+simple - high level, English language to write instructions, easy to learn
+robust - strong mechanism for type checking
+architecture neutral - program on one platform can be executed on another platform without recompilation
+secure - execution inside JAVA environment
+multi-threading - multiple execution lines running simultaneously, independently for logically grouped code
+
+download JDK
+install JDK
+open command prompt and type   java -version
+
+create a folder. open the folder, in address bar click and write cmd
+	OR
+open command prompt, chage to required drive and folder
+
+open notepad and write following code (first java program)
+
+class Welcome
+{
+	public static void main(String[] args)
+	{
+		System.out.println("Welcome to Java");
+		System.out.println("Happy Learning");
+	}
+}
+ 
+file-save-"prg1.java"-save
+go to command prompt
+type => javac prg1.java
+
+no message is displayed. you can execute
+type => java Welcome
+
+o/p 	Welcome to Java
+	Happy Learning
+
+things to note
+java is case sensitive
+classname starts with capital letter => Welcome
+indentation => leaving spaces while writing different lines of code. it increases readability. it is not compulsary
+main method => execution of java code starts with main method. entry point of execution
+every statement is ended with ;
+every statement is written inside method {}
+every method is written inside class {}
+output => displayed on SOD monitor => System.out.println("  "); 
+when "" are used to enclose output it is displayed as it is.
+input => taken through keyboard SID
+
+block {  }
+
+keywords, variables, identifiers, datatypes
+
+keywords - reserved words in a particular prog. lang. they have specific meaning and used in specific manner for specific purpose. 
+e.g. -> try class do 
+
+variables - name of memory location, hold some value, can be changed at execution.
+e.g. x =2,  sname, age=20 
+3 steps to use a variable 
+declare, initialize, use
+rule - variables should be initialized before use
+
+identifiers - names given to variables, class, method 
+rules - 
+a-z, A-Z, 0-9, _, $
+should not start with digit
+should not be JAVA keyword 
+case sensitive
+no length restriction - preferable 8-15, useful, meaningful
+conventions 
+class - starts with capital letter
+variable - multiword then each inner word starts with capital letter (called as camel case)
+sname => sname   age => age
+studentname  => studentName 
+studentprojecttitle => studentProjectTitle
+
+steps to use variables
+declare => datatype variablename;
+initialize => variablename=value;
+declare & initialize => datatype variablename=value;
+use => to display => variablename 
+
+datatypes
+tells about type of value stored, range of value that can be stored, memory occupied for a variable
+
+categories
+primitive, basic data types
+numeric, character, boolean
+data type  type of value value range 	memory occupied 
+boolean    logical       true/false	1 bit		boolean s=true;
+example 
+declaration => datatype variablename; => boolean status;
+initialize => variablename=value; => status=true;
+declaration with initialization => datatype variablename=value; => boolean check=false;
+combination => booelan status,check,remark=true;
+
+use => System.out.println(status);
+
+char	character	printable single character	1 byte
+
+char ch='A';
+
+numeric default value for all numeric datatypes is zero
+byte   	whole numbers 2^^7 to (2^^7)-1  -128 to 127  1 byte byte b=120;
+short 	whole numbers 2^^15 -32768 to 32767 2 bytes short s=30000;
+int   	whole numbers 2^^31
+long  	whole numbers 2^^63  long lv=7788665599L;
+float 	fractional numbers float fl=3.142f; upto 6 decimal places
+double 	fractional numbers double dl=3.3333333333333; upto 15 decimal places
+
+operators
+unary => takes 1 operand 1 operator 
+binary => takes 2 operands operand1 operator operand2  x+y, y>6
+
+arithmetic operators 
+addition => + => 
+	numeric values addition 10+5, x+500, a+b, a+4+b+5 => numeric
+	string values concatenation
+	char values evaluate ascii equvalent then addition
+	boolean not supported
+
+subtraction => - => 5-2, x-7, a-b => numeric
+multiplication => * => a*100, 6*20, x*y => numeric
+division => / => x/y, 6/2, y/3 (remember division by 0 is not supported) => numeric
+remainder => % => 8%2 gives remainder 0 , 8%3 gives remainder 2 => numeric
+
+
+relational or comparison binary => answer will be logical true/false
+
+equality == 		x==y 
+non-equallity !=      y!=10
+conparison < <= > >=   x>z    y<=200
+
+
+logical
+
+exp/cond1 and cond2 => cond1 && cond2
+ 			true and true => true
+			true and false => flase
+			flase and true => false
+			false and false => false
+and operator if first condition is true only then second condition is checked
+
+cond1 or cond2 => cond1 || cond2
+			true || true => true
+			true || false => true
+			flase || true => true
+			flase || false => false
+if first condition is true then second condition is not evaluated
+
+not cond => !cond
+		true => !true => false
+		flase => !false => true
+
+assignment operators
+=    var on lhs = value on rhs
+shorthand assignment operators var lhs = value on rhs
++=   x+=y;  => x=x+y;
+-=  a-=2;  => a=a-2;
+*=  y*=10 => y=y*10;
+/= b/=2;  => b=b/2;
+%= r%=3; => r=r%3;
+
+
+ternary iff 
+
+condition?<value if true>:<value if flase>;
+int r=(x>y)?x:y;
+if (x>y) is true then r=x; otherwise r=y;
+
+increment x++  post fix => x is used first then incremented
+++x pre fix => x is incremented first then used
+
+decrement y-- post fix => y is used first then decremented
+--y pre fix => y is decremented first then used
+
+int x=2; y=x++; => y=2 x=3
+int x=2; y=++x; => y=3 x=3
+
+
+type conversion
+int x=100,y; short s=200,t;
+smaller to bigger conversion takes place implicitly without loss of data
+y=s; => y=200
+
+bigger to smaller conversion has to be specified explicitly 
+	if the value is in the range of smaller datatype then conversion will be without loss of data
+t=(short)x; => t=100
+	if the value is out of range of smaller datatype then conversion will be with loss of data
+int x=200000;short t;
+t=(short)x; => t=value t will take is with loss of data 
+
+
