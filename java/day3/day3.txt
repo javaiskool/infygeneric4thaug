@@ -1,0 +1,207 @@
+Object Oriented Programming concepts
+a programming approach where more importance is given to data than processing =>  place of storage, accessibility, relationship with other data items => manage funcionality easily
+
+basic principle of OOps => reusability
+
+entity => properties, funcionality, events
+
+employee, student, member
+
+entity => employee
+properties => employee no., name, qualification, date of birth, department, designation, city, mobileno, emailid, adharno, experience,salary
+functionality => calculate salary, calculate age,send mails, give promotion, give bonus, allocate project, display employee information
+
+entity => student
+properties => rollno, name, course, fees, bdt, location, address, adaharno, 
+
+
+book, item
+
+entity => book
+properties => title, author, edition, publication, subject, price, discount
+functionality => purchase, sell, calculate cost
+
+bank-account, membership-account
+distance, time, date, measurement units,
+
+mapping of real life entity into programming construct
+entity => class => structural definition of an entity
+employee => class Emp { int empNo;String empName;float salary;
+			calculateSalary(), allocateProject(), displayEmpInfo()}
+100 employees => object/instance => store values of properties for individual employee
+Emp => class
+employee1 => object/instance/ => 101,Sagar,56000.00
+
+class Emp
+{
+	properties/attributes/member variables
+	funcionality/behaviour/method
+}
+
+
+member variables => keyword datatype varName;
+			public	int  empNo;
+			public	String empName;
+			public	float salary;
+keyword => access modifier => public, package, protected, private
+
+
+method => signature => keyword returndatatype methodname(parameterlist seperated by comma)
+{
+	
+}
+keyword => access modifier => public, package, protected, private
+returndatatype => specifies return value from the method
+	int, String, float
+	when a method does not return any value then the returntype is mentioned as void
+public void displayEmpInfo()
+{
+	
+}
+
+class Emp
+{
+	public	int  empNo;//instance variable
+	public	String empName;//instance variable
+	public	float salary;//instance variable
+
+	public void displayEmpInfo()//method
+	{
+		System.out.println("Employee Number : "+empNo);
+		System.out.println("Employee Name : "+empName);
+		System.out.println("Employee Salary : "+salary);
+	}
+}
+
+class provides structural definition
+object actually stores values for the specified attributes of the class
+method inside a class has access to all the member variables of that class
+to implement the class design an object should be declared.
+	attributes should be initialized for that object.
+	the attributes are accessed using methods
+
+class Tester
+{
+	public static void main(String[] args)
+	{
+		int x;
+		x=10;
+		Emp e1;
+		e1=new Emp();
+		e1.empNo=101;
+		e1.empName="Sagar";
+		e1.salary=56000.00f;
+		e1.displayEmpInfo();
+		 
+	}
+}
+
+explaination
+Emp e1=new Emp(); => create instance ( allocate memory) of the class Emp,the reference of the instance is stored in the object reference variable e1., initalization of instance variables for the object.
+		
+Emp => classname => user defined datatype
+e1 => object reference variable of type Emp
+new => keyword that represents memory allocation for instance variables of the class for the object
+
+		
+e1.displayEmpInfo();
+e1 => invoking object
+displayEmpINfo()=> method call. values of all instance variables of the invoking object e1 are accessible to the method
+
+method types based on method signature
+method => signature => 
+keyword returndatatype methodname(parameterlist seperated by comma)
+{
+	
+}
+
+without returntype without parameter
+public void updateSalary(){ }
+without returntype with parameter
+public void updateSalary(int amt){ }
+with returntype without parameter
+public float updateSalary(){      return floatval;}
+with returntype with parameter
+public float updateSalary(int amt){       return floatval;}
+
+returntype specification =>
+if a method does not return any value then the returntype should be void.
+if the method returns a value then:
+the method should have a return statement
+return statement should be reachable , it should be last statement in the method
+the datatype of the value that is return, the returndatatype specification and the datatype of variable that contains return value should be compatible. 
+
+parameters =>
+the parameters should be separated by comma
+the sequence, datatype and no. of parameters in method call and method definition should match
+
+local variables 
+the parameters passed to the method and variables declared inside the method are called as local variables. they are accessible only within the method.
+
+pass by value
+primitive values are passed as a copy of the value. so any alteration done to the variable in the method are not reflectded in the passsing var.
+
+pass by reference
+non-primitive parameters are passed as reference. so the alteration done to the variables are reflected in the passing variable.
+
+
+e1.updateSalary(e2);
+e1 is invoking object
+e2 is explicit parameter that is passed
+
+
+constructor
+special method in a class used to initialize the instance variables
+the constrcutor method has same name as classname
+no returntype specification is given for constructor
+there are 2 type => parameterless constructor
+parameterized constructor
+there can be multiple constructors in a class provided the parameter list is different in no. of parameters/sequence of parameters/type of parameters
+
+if the class do not have any constructor then JAva provides parameterless/default constructor that initializes all the instance variables with default value of respective datatype.
+
+class Emp
+{
+	public	int  empNo;//instance variable
+	public	String empName;//instance variable
+	public	float salary;//instance variable
+	public Emp()//parameterless constructor
+	{
+		empNo=105;
+		empName="Prakash";
+		salary=80000.00f;
+	}
+	public void displaySalary()
+	{
+		System.out.println("Employee Salary : "+this.salary);
+	}
+	
+	public void displayEmpInfo()//method
+	{
+		System.out.println("Employee Number : "+this.empNo);
+		System.out.println("Employee Name : "+this.empName);
+		System.out.println("Employee Salary : "+this.salary);
+		displaySalary();
+	}
+}
+
+class Tester
+{
+	public static void main(String[] args)
+	{
+		Emp e1;
+		e1=new Emp();
+		e1.displayEmpInfo();
+		 
+	}
+}
+
+this keyword
+this keyword in constructor
+by convention the instance variable name and parameter name is generally same. the local variable gets precedence, thus assigning the value to itself and not to instance variable. in such situation to specify instance variable a keyword this is used which refers to invoking/calling/implicit object.
+in the methods also it is a good practice to use this keyword to specify instance variable.
+
+this keyword can be used to call constructor within another constructor. the call will be made based on parameterlist provided with this() or this(111,"kkk").
+it should be the first statement in the constructor.
+
+this keyword can be used to refer instance variable or call method within another method.
