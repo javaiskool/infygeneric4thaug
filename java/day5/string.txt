@@ -1,0 +1,44 @@
+String - collection of characters
+predefined class in java
+String str1=new String("Hello"); //String object with new keyword
+
+-----String literal 
+String str2 = "Welcome"; string literal
+
+1. check for "Welcome" in string constant pool.
+if it exist then str2 will point to the existing string value.
+otheraise it will create instance with "Welcome" string and str2 will point to the string instance.
+
+str2 (reference variable)      "Welcome"   memory address is 100  
+str2 -> 100 
+"Welcome" stored in pool
+
+String str3="Welcome";
+str3 -> 100
+
+therefore str2==str3 answer is true
+
+--- String object using new ------------
+String s1=new String("Hello");
+
+s1 (reference variable )    "Hello" memory address 200
+s1-> 200
+"Hello" store in pool
+
+String s2=new String("Hello");
+s2 (reference variable)   "Hello" memory address 240
+s2-> 240
+
+s1==s2 answer false
+
+
+
+Hello  equals hello  => flase
+Hello  equalsingnorecase hello  => true
+
+
+
+hello  length =5
+index of last character = 4
+at 5th position
+ 
