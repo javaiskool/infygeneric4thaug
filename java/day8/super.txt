@@ -1,0 +1,23 @@
+super keyword
+super keyword is used to access non-private properties of parent class within child class.
+** super keyword for constructor of parent class
+
+super(parameter list); can be used to call parameterized constructor of parent class as the first statement in the child class constructor
+this is required as by default parameterless constructor of parent class is called when object of child class is created and constructor of child class is invoked.
+class Parent
+{
+
+
+** super keyword for method of parent class
+to call a method in parent class in the method of child class
+
+** super keyword for variable of parent class
+if member variable in parent and child class is same super keyword can be used to access variables from parent class in method of subclass
+
+
+relationship between classes through objects 
+
+aggregation 
+has a relationship
+employee has a gadget       => employee has a laptop, mobile, tab
+employee uses an equipment  => employee uses printer, scanner

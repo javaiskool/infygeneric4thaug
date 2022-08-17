@@ -1,0 +1,30 @@
+** polymorphism
+poly => many
+morph => forms
+in OOP the ability of an object to take multiple forms is called polymorphism
+
+** static polymorphism => method overloading
+making payments in different ways
+payment by cash => note, denomination
+paymentByCash(note, denomination)
+payment by cheque => bankname,chequeno, date,amt
+paymentByCheque(bankname,chequeno, date,amt)
+payment by debit card => type, cardno,cvv no
+paymentByDebitCard(type, cardno,cvv no)
+payment by netbanking => bankname, ifsccode, accno,userid, pwd
+paymentByNetBanking(bankname, ifsccode, accno,userid, pwd)
+
+
+in a single class when a task can be performed in differnt multiple ways, it can be represented with common methodname and different parameterlist. these methods should have diffent parameter list i.e. number of parameters, datatype of parameters or sequence of parameters should be different. this is called as method overloading. method overloading is not recognized by difference in the return datatype specification
+
+payment(note, denomination)
+payment(bankname,chequeno, date,amt)
+payment(type, cardno,cvvno)
+payment(bankname, ifsccode, accno,userid, pwd)
+
+binding of references and methods takes place at compile time. so it is also called as compile time binding/static polymorphism/early binding
+
+constructor overloading is a special case of method overloading. in a class multiple constructors can be written with different paramerlist. 
+
+** dynamic polymorphism => method overridding
+
