@@ -1,0 +1,103 @@
+data
+discrete precise values
+
+database
+store data, manipulate data, retrieve data 
+safety & security
+user access control
+backup & recovery
+
+dbms database mnagement system
+
+data -> information -> knowledge
+
+mothematical model statistical model analytical model
+
+data mining
+
+models
+hierarchical - inverted tree structure i.e. root at the top and branchs spreading downwards
+
+network  - nodes and arcs to maintain connections
+
+relational- tabular that contains tables/relations where the data is stored in terms of rows & columns
+
+NoSql - not only SQL  (key-value pair, graph, tagged documents)
+
+
+relational model
+data is stored inrelations/ tables in terms of rows/tuples and columns/attributes
+relationship between tables is maintained in tables themselves
+relation (table) - tuple (record/row)- attribute (field/column)
+cardinality(number of tuples in a relation)
+degree (number of attributes in a relation)
+domain (set of permitted values for an attribute)
+null - means nothing
+
+
+DEPT(DEPTNO,DEPTNM)
+CARDINALLITY = 3
+DEGREE = 2
+DOMAIN DEPTNO POSITIVE INTEGER 
+DOMAIN DEPTNAME CHARACTER {ACC,MKT,DEV}
+
+deptno deptname
+101	ACC
+102	MKT
+103	DEV
+
+EMP(ENO,ENAME,SAL)
+CARDINALITY 5
+DEGREE =4
+DOMAIN ENO DATATYPE POSITIVE INTEGER
+DOMAIN CHARACTER
+SAL DOMAIN NUMERIC RANGE 20000 TO 200000
+
+ENO ENAME SAL DEPTNO(FOREIGN ATTRIBUTE TO ESTABLISH RELATION)
+1 AAA 20000  102
+2 BBB 80000  103
+3 CCC 43000  102
+4 DDD 55000 101
+5 FFF 66000 103
+
+DEPT_EMP
+101 4
+102 1
+102 3
+103 2
+103 5
+
+
+EMP(ENO,ENAME,SAL,DEPTNO,DOB,AADHARNO)
+ENO 10
+ENAME SEMMA
+SAL 60000
+DEPTNO 103
+DOB 23-APR-2000
+AADHARNO 
+candiate keys - ENO, AADHARNO
+
+integrity - accuracy and consistency
+entity integrity - unique tuple identification - enforced through primary key
+domain integrity - specific type of values and permitte set of values (domain, range) - enforce through data-type, check constraint
+referencial integrity - relationship between the tables - enforced through foreign key constraint  - primary key attribute or unique attribute of parent table is made foreign key attribute in child table
+
+keys 
+candidate keys
+primary key 
+foreign key
+
+additional concepts to explore
+architecture
+ACID properties (Atomicity,Consistency, Isolation, Durability)
+CODD's rules
+normalization and de-normalization
+
+
+
+CLUB(CLUBID,NAME,LOCATION)
+MEMBER(MEMBERID,NAME,ADDRESS,CLUBID)
+
+
+
+

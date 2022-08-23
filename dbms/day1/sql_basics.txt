@@ -1,0 +1,30 @@
+SQL STRUCTURED QUERY LANGUAGE
+DDL DATA DEFINITION LANGUAGE 
+structural definition of objects like tables
+for each attribute=> name, data-type with size, constraint 
+
+commands
+create table - to create new table structure
+alter table - modify existing table structure
+drop table - remove data and table structure 
+truncate table - remove all data permanantly but structure will be intact
+
+DML DATA MANIPULATION LANGUAGE
+
+manipulate data stored in the table
+
+commands
+insert - to add new tuple/row/record
+update - to modify data in existing tuple/s
+delete - to remove tuples
+
+select - to retrieve data 
+
+DCL DATA CONTROL LANGUAGE
+GRANT  to give permission to other users to use objects
+REVOKE - to restrict access to objects 
+
+TCL TRANSACTION CONTROL LANGUAGE
+commit, rollback, save point - affects DML commands based on environment settings
+
+

@@ -1,0 +1,51 @@
+operator
+
+3 types 
+arithmetic 
++ - * /
+
+comparison
+= <> > >= < <=
+
+logical 
+and or not
+
+between
+var between value1 and value2 
+marks between 80 and 100
+marks>=80 and marks<=100 
+marks between 80 and 100
+marks<80 or marks>100 
+(inclusive of value1 & value2)
+
+in
+var in (list of values seperated by ,)
+deptnm in ('ACC','MKT','DEV')
+deptnm='ACC' or deptnm='MKT' or deptnm='DEV'
+deptno in (10,20,40)
+deptno=10 or deptno=20 or deptno=40
+deptno not in (10,20,40)
+deptno<>10 or deptno<>20 or deptno<>40
+
+like
+var like 'value using wild characters'
+_ single character, % any characters
+Varsha Ajay Beena Vijay Asha Komal
+
+name = 'Ajay' 
+name like 'A%' => Ajay Asha (name starting with A)
+name like '%a'=> Varsha Beena Asha (name ending with a)
+name not like 'A%' => Varsha Beena Vijay Komal (name not starting with A)
+
+to compare with null
+var is null
+name is null
+var is not null
+name is not null
+
+
+*** data is case sensitive 
+
+
+
+is

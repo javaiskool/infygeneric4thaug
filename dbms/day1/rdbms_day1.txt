@@ -1,0 +1,251 @@
+database management system   
+
+data
+set of discrete values that are related and will get meaning , become useful when referred  with row and column specification
+
+25 
+	
+    empno	age
+emp 201		25
+
+
+50000
+	rollno    fees
+student  2  	50000
+
+		salary
+employee 1
+database 
+facilitates to store, retrieve and manipulate data and related objects
+     
+database management system
+a system that will facilitate various functionalities related to data
+user access control
+safety and security
+backup & recovery
+
+data => information => knowledge => DSS
+
+models : statistical, mathematical, analytical
+
+data warehousing, data mining
+architectures
+codds rules, normalization, de-normalization
+
+types of databases based on the way the relationship between data items across differnt data objects are maintained
+
+heirarchical - inverted tree structure, with root at the top and branches spreading downwards. type of relation between two subsequent levels is parent-child
+
+network - nodes and arcs are used to store data and set up relationship between data items
+
+relational
+the data is stored as a table/relation with columns/fields/attributes
+					rows/records/tuples
+
+relationship between tables is maintained within the tables themselves
+properties 
+no. of tuples in a relation - cardinality
+no. of attributes in a relation - degree
+set of permitted values for an attribute - domain
+special treatment of null (means nothing)
+
+
+Oracle, SqlServer, MySQL
+syntax - Oracle
+
+
+
+SQL - Structured query language
+
+
+NoSQL database - not only SQL (key-value, graph, tagged documents)
+
+
+Employee
+ID	NAME	SALARY	BONUS	DEPT
+1 	AAA	89000	7900	ACC
+2 	BBB	56790	4500	MKT
+3	CCC	80000	7800	ACC
+
+DEPT
+ID	NAME	LOC
+101	ACC	MUM
+102	MKT	DELHI
+103	DEV	BANGLORE
+104	SALES	MUM
+
+ENTITY INTEGRITY CONSTRAINT (PRIMARY KEY) - ID
+DEPT { ACC,MKT,DEV,SALES } 
+DOMAIN INTEGRITY CONSTRAINT : DATATYPE CHAR , CHECK 
+AGE 18-58
+DOMAIN INTEGRITY CONSTRAINT : DATATYPE NUMERIC, CHECK 
+
+REFERENTIAL INTEGRITY  - FOREIGN KEY CONSTRAINT- DEPT-NAME => EMPLOYEE DEPT
+ 
+Salary
+ID 	MONTH 	SALARY	
+1	JAN	
+2	JAN	
+3	JAN
+1	FEB	
+2	FEB
+3	FEB
+
+
+CLUB(CLUBID,NAME,LOCATION)
+CADIDATE KEYS - CLUBID
+PRIMARY KEY - CLUBID
+DOMAIN 
+CLUBID CHARACTER, VALUE SET {C11- C20} 
+NAME CHARACTER, { , , }
+LOCATION CHARACTER , {MUM, PUNE,PANVEL, THANE, NAGPUR}
+
+MARKS 0-100
+GENDER {F,M}
+STATES {, , , }
+NAME 
+SALARY {10000-500000}
+DESIG {ENGINNER, ANALYST, DESIGNER,PROGRMMER}
+
+MEMBER(MEMBERID,NAME,ADDRESS)
+
+
+emp
+empno ename sal dept desig mgrid
+1				4
+2				4
+3				6
+4				-
+5				6
+6				-
+
+student
+rollno	name	event	evant-head
+1				7
+2				8
+3				7
+4				7
+5				7
+6				8
+7				-
+8				8
+
+number(p,s)
+p represents precision
+precision is inclusive of scale 
+precision represents integral part
+if there is overflow in integral part then error is generated
+s represents scale i.e. decimal or fractional part
+IF THERE IS OVERFLOW IN SCALE i.e. decimal part then rounding off is done
+5.2 => 5
+5.7 => 6
+
+121.79 => NUMBER => 121.79
+121.79 => NUMBER(3) => 122  => integral 3 decimal 0
+121.79 => NUMBER(5,2) => 121.79 => integral 3 decimal 2
+121.79 NUMBER(6,1) => 121.8 => integral 5 decimal 1
+121.79 => NUMBER(4,2) => ERROR => integral 2 decimal 2
+
+salary between 2500 and 3000
+salary>=2500 and salary<=3000
+
+dept in ('IVS','ETA','ICP')
+DEPT='IVS' OR DEPT='ETA' OR DEPT='ICP'
+
+NAME =>POOJA, ANJALI, KAMALA, PRITI, PRIYA SMITA
+	name like 'P%' => POOJA PRITI PRIYA
+	NAME LIKE '%A" => POOJA KAMALA PRIYA SMITA
+	NAME LIKE '_____' => POOJA PRITI PRIYA SMITA
+	NAME  NOT LIKE '%A%' => PRITI
+	NAME LIKE '%A% => POOJA ANJALI KAMALA PRIYA SMITA
+	name like 'p%a' => 
+	name like 'P%A' => POOJA PRIYA
+	NAME LIKE 'P_I%' => PRIYA PRITI
+
+	NAME IS NULL 
+	NAME IS NOT NULL
+
+
+_ => any single character at its position
+% => any character set at its position 
+
+Employee (empno,ename,salary,dob,dept,desig,city,mobileno,emailid)
+	101 AAA 56000 27-Aug-02 ACC PROGRAMMER MUMBAI 8989909000 aaa.tryal@gmail.com
+
+
+candidate keys => empno,mobileno,emailid
+primary key => empno
+
+
+
+
+create table empl
+(empno integer,ename varchar2(10),salary number(10,2))
+;
+*********** drop table
+case 1 : no child table exist for student
+
+create table student
+
+desc student
+
+insert into student
+
+select 
+
+drop table student
+deletes all the tuples and also the structure
+
+describe student => not work
+select => not work
+
+case 2 : student table has marks table as child table
+parent table
+create student
+insert into student
+child table
+create table marks
+insert into marks
+
+drop table student => error ( parent table)
+2 options => remove child table first then the parent table
+		drop table parent_table_name  cascade constraints 
+
+
+************ truncate table
+
+truncate table student
+
+removes all the tuple but, the structure exists
+
+
+**********create tabel 
+
+create table tryal1(col1 char(2),col2 integer,col3 date,col4 varchar2(10))
+
+************** create table with constraints syntax
+create table table_name (column_name datatype<(size)> [constraint constraint_name] actual_constraint default default_value,col2 .....);
+************* to list out the constraints
+
+select table_name, constraint_name,constraint_type,search_condition from user_constraints where table_name='STUDENT1'
+
+*********** to list out the tables in the user_catalog
+select * from user_catalog
+
+************** create table with constraints type1
+
+create table student(rollno integer primary key,sname varchar2(10) not null,city varchar2(10) default 'MUM',fees number(8,2) check(fees<=50000.00), mobileno integer unique)
+
+************** create table with constraints type2
+
+create table student1(rollno integer constraint stud_rno_pk primary key,sname varchar2(10) constraint stud_snm_nn not null,city varchar2(10) default 'MUM',fees number(8,2) constraint stud_fee_chk check(fees<=50000.00), mobileno integer constraint stud_mob_unq unique)
+
+************ column level constraints
+primary key
+not null
+unique
+check (condition)
+clause - default default_value 
+
+ 
+
