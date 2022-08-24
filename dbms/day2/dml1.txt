@@ -1,0 +1,94 @@
+DML 
+data manipulation language
+insert, update, delete, select
+
+insert is to add new record/tuple to the table
+create table tryal (tno integer primary key, gender char(1) check (gender in ('f','m')),name varchar2(10) unique, sal number(10,2) check (sal between 20000 and 200000), bdt date not null, city varchar2(10) default 'MUMBAI')
+
+insert into tryal values (2,'m','Mohit',140000,'23-jun-12','Chennai')
+insert into tryal values (2,'m','Mohit',140000,'23-jun-12','Chennai')
+insert into tryal values (3,'f','Meenal',100000,'23-jun-12','Mumbai')
+
+insert into tryal (tno,bdt)values (4,'03-jan-12')
+insert into tryal (tno,bdt) values (5,'18-Apr-20')
+
+insert into tryal values (6,null,null,56000,'20-jun-12',null)
+insert into tryal values (7,null,null,null,'20-jun-12',null)
+
+update tryal set sal=100000 where city like 'M%'
+update tryal set sal=50000 where tno=1
+update tryal set bonus=sal*(1/100)
+
+
+alter table tryal  add (bonus number(6,2))
+
+insert into table_name values (list of values separated by ,)
+
+insert into table_name (attribute list ) values (value list)
+the attribute list should include not null columns
+the sequence of attribute list and value list should match
+
+insert into table_name as select query
+
+insert into salesman values (11, 'Elizabeth','London')
+insert into product values (110, 'Bat', 50, 'Sports', NULL)
+
+
+select query
+to display data by retrieving from specified table/relation
+it does not affect the data
+
+select * from table_name
+select * from product
+
+select attribute_list from tablename
+attribute list is used for displaying only selected attribute data 
+it can be displayed with  
+user specified column heading 
+	single word then use as it is
+	multi-word enclose in ""
+expressions/calculations/functions/constants
+
+
+select prodid "product id",price,discount,price-discount "discounted price" from product
+
+
+to specify selected tuples/records use where clause
+
+select column_list/* from table_name where conditions
+
+conditon syntax
+column operator exp
+prodid=101
+prodid=101 or prodid=104
+pdesc='Shirt' and discount<5
+pdesc is null
+pdesc like 'B%'
+pdesc like 'S__'
+price between 10 and 30
+discount in (5,7)
+pdesc not null
+discount not in (5,7)
+price not between 10 and 30
+prodid<>101
+
+distinct clause  is used to remove duplicates value display for specified column
+
+it should immediately follows select clause
+applies to all the columns in the column list
+for multiple columns it removes duplication in case of combination of columns
+
+select distinct deptno from emp;
+select distinct deptno,desig from emp;
+
+QUERY EXECUTION ORDER
+select, from, where, distinct
+complsary - select , from
+optional - where, distinct
+
+order of execution
+from
+where 
+select
+distinct
+

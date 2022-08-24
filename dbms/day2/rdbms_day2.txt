@@ -1,0 +1,205 @@
+
+SQL
+structured query language
+DDL - Data Definition language : the commands once executed are permanent. all the commands deals with structural definition of the table object
+
+
+create table => to define structural specification of table object
+alter table => to modify or add structural definition after creation
+truncate table => delete all the tuples from the table, but the structural definition will exist
+drop table => remove all the tuples and structural definition also.
+	table with no relation can be dropped as follows
+	drop table table_name;
+	drop table emp;
+	
+	table with relation with another table can be dropped in following ways. (parent- student, child- result)
+
+	if the table is a child table 
+	drop table table_name;
+	drop table result;
+	to drop parent table
+	either drop child table followed bby dropping parent table 
+	drop table result;
+	drop table student;
+		or
+	drop table student cascade constraints;
+	the relation between the tables is established using foreign key constraint(referential integrity constraint). cascade constraints will remove all the foreign key constraints set on the table.
+
+create table table_name (column_name datatype<(size)> [constraint constraint_name] actual_constraint,column_name ....)
+
+datatypes 
+char, varchar  enclosed in single quotes '  '
+numeric : integer/ number number(p,s) 
+precision is inclusive of scale. if scale/fractional part has overflow the value will be rounded off based on <5 or >=5. if interal part has overflow then error is generated.
+date, timestamp  default date format is 'dd-mon-yy' '12-Jan-22'
+blob, clob
+
+operators
+arithmetic
+relational/comparison
+logical
+others : in, like, between, is null
+
+
+constraints
+not null => applied only at column level, to single column
+unique => applied at column level, to single column or table level, to multiple columns
+primary key => applied at column level, single column, or table level, to multiple columns only one per table 
+check => applied at column level, to single column or table level, to multiple columns
+clause => default value
+** more than one constrinat can be applied to a column
+
+
+table level constraints
+create table table_name (column_name datatype<(size)> [constraint constraint_name] actual_constraint,column_name ....,constraint1_specification, constraint2_specification, ....)
+
+** not null cannot be applied at table level
+** there can be only one primary key constraint per table
+** before provided table level constraint the columns used in the constraint should have been defined 
+
+create table try21(fname varchar2(10) unique,lname varchar2(10) unique, marks number(5,2))
+
+fname(unique) lname(unique)
+aaa		kkk
+lll		mmm
+aaa not allowed
+ppp		mmm not allowed
+
+create table try22(fname varchar2(10),lname varchar2(10), unique (fname,lname),marks number(5,2))
+or
+create table try22(fname varchar2(10),lname varchar2(10), constraint try22_fnm_lnm_unq unique (fname,lname),marks number(5,2))
+
+fname + lname (unique)
+aaa 	kkk
+aaa	mmm
+ppp	kkk
+aaa 	kkk not allowed
+
+create table esal1(eno integer,salary number(10,2),bonus number(6,2),city varchar2(10),check (bonus<salary*0.1))
+or
+create table esal1(eno integer,salary number(10,2),bonus number(6,2),city varchar2(10),constraint esal1_sal_bonus_chk check (bonus<salary*0.1))
+ 
+
+create table esal2(eno integer, month char(3), salary number(10,2),constraint esal2_eno_month_pk primary key(eno,month))
+or
+create table esal2(eno integer, month char(3), salary number(10,2),primary key(eno,month))
+
+** multiple table level constraints
+
+create table esal(eno integer,fname varchar2(10),lname varchar2(10),salary number(10,2),bonus number(6,2),city varchar2(10) not null,month char(3),
+primary key(eno,month),unique(fname,lname),check (bonus<salary*0.1))   
+  
+to establish relation between parent table (dept table) and child table (eemp table) use unique or primary key column of parent table in the child table with foreign key constraint specification
+
+create table dept (dno integer primary key,dnm varchar2(10))  => parent table 
+
+create table emp1(eno integer primary key,ename varchar2(10),sal number(10,2),dno integer references dept1(dno)) => child table
+or
+create table emp1(eno integer primary key,ename varchar2(10),sal number(10,2),dno integer constraint dep_emp_dno_fk references dept(dno)) => child table
+or
+create table emp(eno intger primary key,ename varchar2(10),sal number(10,2),dno integer,constraint dept_emp_dno_fk  references dept(dno)) => child table
+
+
+*********** DML data manipulation language
+deals with data in a table
+
+insert => to add new rows/records/tuples to a table
+
+create table emp24(eno integer primary key, enm varchar2(10),salary number(10,2),bonus number(6,2),bdt date,city varchar2(20),gender char(1))
+
+
+
+** to add a tuple with data for all the columns in the sequence they are mentioned at the time of table creation
+insert into table_name values (value list seperated by comma)
+
+
+insert into emp24 values (1,'PRIYA',67000.00,5000,'23-jul-74','CHENNAI','F');
+insert into emp24 values (2,'SAMEER',24000.00,NULL,'03-jul-04','CHENNAI','M');
+insert into emp24 values (3,'KAMALA',63000.00,5000,'16-FEB-88','MUMBAI','F');
+insert into emp24 values (4,'AJAY',18000.00,NULL,'14-jUN-96','MUMBAI','M');
+insert into emp24 values (5,'TAPAN',74000.00,6500,'19-SEP-06','BARODA','M');
+insert into emp24 values (6,'RAHUL',67000.00,5000,'4-AUG-74','CHENNAI','M');
+insert into emp24 values (7,'SMITA',21000.00,NULL,'23-jul-88','BARODA','F');
+insert into emp24 values (8,'SHRUTI',82000.00,8000,'25-DEC-12','MUMBAI','F');
+insert into emp24 values (9,'AJIT',61000.00,5000,'9-OCT-11','BARODA','M');
+insert into emp24 values (10,'SUHAS',86000.00,8000,'23-jul-74','CHENNAI','M');
+
+** TO ADD A TUPLE WITH DATA FOR ALL THE COLUMNS IN DIFFERent sequence
+insert into table_name (column_list seperated by comma) values (value list)
+
+insert into emp24 (eno,enm,gender,city,bdt,salary,bonus) values (11,'GOPAL','M','MUMBAI','12-mar-16',77000,5200)
+
+** TO ADD A TUPLE WITH SOME OF THE selected COLUMN VALUES  (this is possible only if the constraints specified in the table are satisfied)
+
+insert into table_name (column_list) values (value_list)
+insert into emp24 (eno,enm,gender,city,bdt) values (12,'RADHA','F','CHENNAI','09-NOV-21')
+insert into emp24 values (13,'YATIN',NULL,NULL,'30-AUG-99','MUMBAI','M');
+
+** to add multiple tuples by using the data from another table
+
+create table emp25(eno integer primary key, enm varchar2(10),salary number(10,2))
+
+insert into emp25 select eno,enm,salary from emp24
+
+
+
+select => to retrieve the data from table and display to the user
+select only retrieves the data from the table and temporarily stores it in a resultset. select does not affect the data stored in the table
+select column_list from table_name  
+
+**select clause is used to specify column_list from which the data is to be retrieved
+from caluse is used to specify table_name from which the data is to be retrieved
+both select and from clause are compulsary
+
+column_list =>
+* => all the attributes
+column1_name,column2_name
+expressions, functions,constants
+column headings can be given along with column as
+column_name column_heading
+column_name "column  heading"
+
+select * from emp24
+select enm,salary,bdt from emp24
+select enm employee_name,salary,bonus,salary+bonus from emp24
+select eno "employee ID",enm,30 from emp24
+select eno "employee ID",enm,sysdate from emp24
+
+select eno,enm,sysdate-bdt from emp24
+select eno,enm,round((sysdate-bdt)/365,0) age  from emp24
+
+
+** where clause is used to specify condition/s. the tuples that satisfies the given consition/s will be used for retrieving data from specified columns in the select clause
+used to filter tuples used in select query
+
+select * from emp24 where city='MUMBAI'
+select * from emp24 where city='MUMBAI' and salary>50000
+select eno,enm from emp24 where (city='MUMBAI' or city='CHENNAI') and gender='F'
+select eno,enm from emp24 where city in ('MUMBAI','CHENNAI') and gender='M'
+select eno,enm,salary where salary > 50000 and salary<80000
+select eno,enm,salary from emp24 where salary > 50000 and salary<80000 and city='BARODA'
+select eno,enm,salary from emp24 where salary between 50000 and 80000 and city='BARODA'
+select eno,enm,salary from emp24 where salary not between 50000 and 80000 and city='BARODA'
+select * from emp24 where bonus is null
+select * from emp24 where bonus is null and salary is not null
+select * from emp24 where enm like 'S%A' 
+select * from emp24 where enm not like 'S%A' 
+
+
+
+update => to modify data in existing tuples
+
+dalete => to remove existing tuples
+
+
+
+ create table try11(col1 integer,col2 char(2),col3 varchar2(10),col4 date)
+insert into try11 values (1,'ff','hello','12-dec-20');
+insert into try11 values (8,66,'hello','12-dec-20');
+insert into try11 values (8,66,777,'12-dec-20');
+insert into try11 values (8,null,'pppppppppp','30-dec-20');
+insert into try11 values (null,null,null,null);
+insert into try11 (col1,col4) values (1,'18-jan-2002');
+
+create table try12 as select col4,col2 from try11
+insert into try12 select col4,col2 from try11
