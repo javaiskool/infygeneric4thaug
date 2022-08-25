@@ -1,0 +1,59 @@
+insert into empdetails (empid,empname,salary) select empno,ename,sal from emp where job='ANALYST'
+
+create table emp25 as select empno,ename,sal from emp 
+
+
+****************DML command
+**update
+
+update => to modify data in existing tuples
+it is also used for filling in some columns
+
+
+update table_name set column1_name=value,column2_nam=values .... where condition/s
+
+update emp25 set sal=1400 where ename='SMITH'  => the tuples satisfing the given condition will be considered for updating salary.
+
+
+update emp25 set sal=1400 where sal<1000
+
+update emp25 set sal=sal*10 => as where clause is not used update will consider all the tuples.
+
+
+modify the table emp25 to store hra, da,pf,pt,net,gross salary values
+
+alter table emp25 add (hra number(8,2),da number(8,2),pf number(6,2),pt number(6,2),gross number(12,2),net number(12,2))
+
+update emp25 set hra=sal*0.2,da=sal*0.12,pf=sal*0.08,pt=400
+
+update emp25 set gross=sal+hra+da, net=gross-(pf+pt)
+
+update emp25 set net=gross-(pf+pt)
+
+
+****delete 
+
+delete => used to remove the tuples from the table. if where clause is not specified then delete statement will delete all the tuples from the table
+
+delete from table_name where condition/s
+
+
+create table try31 (id number,name varchar2(10),amt number(8,2))
+
+insert into try31 values (101,'aaa',8900);
+insert into try31 values (102,'vvv',6780);
+insert into try31 values (103,'kkk',12500);
+insert into try31 values (104,'eee',5490);
+insert into try31 values (105,'sss',9999);
+
+
+delete from try31 where id=101
+
+delete from try31 where amt<8000 => will remove the tuples that satisfies the given condition/s from table try31
+
+if delete includes tuples with column-values which are referred by child table then delete will give error.
+
+if in child table while defining foreign key on delete cascade option is used then parant as well as child tuples are removed with delete statment
+
+
+delete from try31 => will remove all the tuples from table try31

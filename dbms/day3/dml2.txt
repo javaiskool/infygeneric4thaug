@@ -1,0 +1,64 @@
+update -modify data in existing tuples or fill in the data to newly added columns using alter table
+
+update table_name set column1=value1,column2=vallues .... where condition
+
+without where clause update will modify data in all the tuples/records
+
+update tryal set sal=100000 where city like 'M%'
+update tryal set sal=50000 where tno=1
+update tryal set bonus=sal*(1/100)
+
+delete from tablename where condition
+
+delete without where clause deletes all the tuples 
+
+
+functions
+numeric => abs, round, ceil,floor
+character => upper, lower, concat, length, substr
+date      => add_months, months_between
+conversion => to_number, to_char, to_date
+
+sysdate, systimestamp => dual
+
+select sysdate from dual
+select systimestamp from dual
+
+
+emp table => bdt birthdate
+display age of the employees
+
+emp(eno,ename,bdt)
+eno,ename,age
+
+misc => nvl, user
+
+
+
+create table empt(eno number,ename varchar2(10),bdt date)
+
+CREATE TABLE EMPS (ENO NUMBER,ENAME VARCHaR2(10),SAL NUMBER(12,2),DA NUMBER(8,2),HRA NUMBER(8,2),PF NUMBER(6,2),GROSS NUMBER(15,2),NET NUMBER(15,2))
+
+HRA 20%
+DA 12%
+PF 8%
+PT 200
+
+GROSS=SAL+HRA+DA
+NET=GROSS-PF-PT
+
+UPDATE EMPS SET HRA=SAL*0.20,DA=SAL*0.12,PF=SAL*0.08
+
+UPDATE EMPS SET GROSS=SAL+HRA+DA, NET=GROSS-PF-200
+UPDATE EMPS SET NET=GROSS-PF-200
+
+ALTER TABLE EMPS ADD (DEPTNO NUMBER,DESIG VARCHAR2(10),CITY VARCHAR2(10))
+
+UPDATE EMPS SET DEPTNO=101, DESIG='MGR', CITY='DELHI' WHERE ENO=1
+UPDATE EMPS SET DEPTNO=102, DESIG='ENG', CITY='CHENNAI' WHERE ENO=2
+UPDATE EMPS SET DEPTNO=101, DESIG='OFR', CITY='DELHI' WHERE ENO=3
+INSERT INTO EMPS (ENO,ENAME,SAL,DEPTNO,DESIG,CITY) VALUES (4,'FFF',24000,103,'CLK','PUNE')
+INSERT INTO EMPS (ENO,ENAME,SAL,DEPTNO,DESIG,CITY) VALUES (5,'RRR',64000,102,'ENG','MUM')
+INSERT INTO EMPS (ENO,ENAME,SAL,DEPTNO,DESIG,CITY) VALUES (6,'WWW',94000,103,'MGR','CHE')
+
+UPDATE EMPS SET NET=GROSS-PF-200 WHERE ENO IN (4,5,6)
