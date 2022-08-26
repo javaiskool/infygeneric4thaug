@@ -1,0 +1,130 @@
+select clause, from clause => compunsary clauses of select query statment
+where clause
+
+** group by clause with select query
+group by clause is generally used to generate summary information or statistical information based on grouping criteria
+
+generally aggregate functions are used to produce the information
+sum, avg, => applicable to numeric datattype only
+count, min, max => applicable to numeric as well as non-numeric dadatypes
+these are multirow functions that works on multiple rows to produce single row result
+
+scenario
+emp(empno,ename, salary, deptno,desig)
+
+** type 1 (all the tuples) aggregate functions with all the tuples
+select max(sal) from emp => work on all the tuples and generate single row of maximum salary as result
+
+select count(empno) from emp => work on all the tuples and generate no. of employees in the organization as a result (single row)
+
+select count(empno),max(sal),min(sal),sum(sal),round(avg(sal),2) from emp
+
+** type 2 (the tuples satisfing given criteria) aggregate function with filtering tuples using where clause
+
+select count(empno) from emp where deptno=10 =>consider the tuples that satisfies the criteria specified in where clause i.e. the tuples where deptno=10 will be considered and count of empno will be generated as result (single row)
+
+select count(empno),max(sal),min(sal),sum(sal),round(avg(sal),2) from emp where deptno=10
+select count(empno),max(sal),min(sal),sum(sal),round(avg(sal),2) from emp where job='ANALYST'
+select count(empno),max(sal),min(sal),sum(sal),round(avg(sal),2) from emp where deptno=20 and job='CLERK'
+
+** type 3 (based on group or group wise) aggregate functions with grouping attribute
+for each group-value, one result row is generated
+when group by clause is used then the select clause can include only group by attribute along with aggregate functions. no other attributes can be used.
+ 
+
+select count(empno) from emp group by deptno
+select max(sal) from emp group by deptno
+
+select deptno,count(empno),max(sal),min(sal),sum(sal),round(avg(sal),2) from emp group by deptno
+select job,count(empno),max(sal),min(sal),sum(sal),round(avg(sal),2) from emp group by job
+
+** group by with multiple grouping attributes i.e. main group and sub group
+
+select deptno,job,count(empno),max(sal),min(sal),sum(sal),round(avg(sal),2) from emp group by deptno,job
+
+select job,deptno,count(empno),max(sal),min(sal),sum(sal),round(avg(sal),2) from emp group by job,deptno
+
+** group bby and order by 
+to make the output more redable, understandable and meaningful
+
+select deptno,job,count(empno),max(sal),min(sal),sum(sal),round(avg(sal),2) from emp group by deptno,job order by deptno
+
+select deptno,job,count(empno),max(sal),min(sal),sum(sal),round(avg(sal),2) from emp group by deptno,job order by deptno,job desc
+
+** group by and where
+if the tuples to be considered for goruping are to be filtered before grouping then where clause can be used along with group by clause
+
+select deptno,count(empno) from emp where hiredate < to_date('1-jan-1983') group by deptno
+
+** group by, where and order by
+select substr(hiredate,4,3),count(empno) from emp where hiredate < to_date('1-jan-1983') group by substr(hiredate,4,3) order by count(empno) desc
+
+
+** having clause with goup by
+having clause can be used with group by clause to filter the tuples from resultset after grouping.
+
+select substr(hiredate,4,3),count(empno) from emp  group by substr(hiredate,4,3) having count(empno)>1
+
+
+** where , group by with having
+select substr(hiredate,4,3),count(empno) from emp where hiredate < to_date('1-jan-1983') group by substr(hiredate,4,3) having count(empno)>1
+
+**misc queries
+select empno,ename,substr(hiredate,4,3) from emp  where substr(hiredate,4,3)='FEB'
+
+select * from emp where hiredate < to_date('1-jan-1983')
+
+
+***** join
+
+till now we have used select query to retrieve data from single table. in real life scenario it will be necessary to fetch data from multiple tables using a single query.
+following query types can be used for this purpose.
+union
+interesct
+minus
+joins
+sub-queries
+
+
+join facilitates accessing/retrieving data from multiple tables based on condition applied to related column in both join tables . this condition is called as join condition
+types of joins
+cross join/cartesian join
+inner join => equi join/ non-equi join
+outer join => left out join, right outer join, full outer join
+
+if the select clause includes column present in both the tables of join then those columns should be prefixed with table name, else error will be generated.
+ 
+the table names in join query may have alias name that can be used to specify columns common to both the tables
+
+join query can be written on more than two tables as well
+the clauses like where, group by - having, order by can be used as per requirement as applicable
+we will study most commonly used join type i.e. inner join in details
+
+
+** cross join/ cartesian product
+each tuple in one table is matched and fetched with each tuple in another table
+
+select * from emp,dept
+select * from emp cross join dept
+select empno,ename,job,dname,loc from emp cross join dept
+select empno,ename,job,dept.deptno, dname,loc from emp cross join dept
+select empno,ename,job,d.deptno, dname,loc from emp e cross join dept d
+
+each tuple of emp table is fetched with each tuple of dept table. so the no. of tuples in the resultset will be => no. of tuples in emp * no. of tuples in dept
+
+*** inner join
+select empno,ename,job,e.deptno,d.deptno, dname,loc from emp e inner join dept d  on e.deptno=d.deptno
+select empno,ename,job,e.deptno,d.deptno, dname,loc from emp e  join dept d  on e.deptno=d.deptno
+select empno,ename,job,e.deptno,d.deptno, dname,loc from emp e , dept d  where e.deptno=d.deptno
+select empno,ename,job,emp.deptno,dept.deptno, dname,loc from emp  , dept   where emp.deptno=dept.deptno
+
+select id,ename,d.deptno,dname,c.compid from dept d inner join employee e on e.dept=d.dname inner join computer c on e.compid=c.compid
+
+* additional condition can be specified in two ways as follows
+way 1=> on join_condition and additional_condition . both the conditions are checked in single step 
+select id,ename,d.deptno,dname,c.compid from dept d inner join employee e on e.dept=d.dname inner join computer c on e.compid=c.compid and dname='ICP'
+
+way 2=> on join_condition where additional_condition. resultset based on join condition is prepared first then additional condition is evaluated on the resultset to produce final result
+select id,ename,d.deptno,dname,c.compid from dept d inner join employee e on e.dept=d.dname inner join computer c on e.compid=c.compid where dname='ICP'
+
+
