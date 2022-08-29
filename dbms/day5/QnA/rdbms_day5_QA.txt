@@ -1,0 +1,135 @@
+1. display empno, name and sal for employees in dept 20 or 30
+select empno,ename,sal from emp where deptno in (20,30)
+
+2. display deptno and no. of employees in dept 10 or 20
+select deptno,count(empno) from emp group by deptno having  deptno in (20,10)
+
+3. display deptwise total salary for managers
+select deptno,sum(sal) from emp where job='MANAGER' group by deptno  
+
+4. display empno, ename, salary, deptname and location
+ select empno,ename,dname,loc from emp e join dept d on d.deptno=e.deptno  
+
+5. display ename,job  and deptname for salesman in dept 10 or 30
+select empno,job,dname,e.deptno   from emp e join dept d on d.deptno=e.deptno  where job ='SALESMAN' and e.deptno in (10,30)
+
+6. display dname and no. of employees in each department
+select d.deptno,dname,count(empno) from emp e join dept d on e.deptno=d.deptno group by d.deptno,d.dname
+
+**** self join
+
+7. display empno,ename, managerno, managername  (self join)
+ select e1.empno,e1.ename "employee name",e1.mgr "manager id",e2.ename "manager name" from emp e1 join emp e2 on e1.mgr=e2.empno
+
+*** multiple inner join 
+
+create table job_profile (job varchar2(9) primary key, profile varchar2(30))
+
+insert into job_profile values ('CLERK','accounts work');
+
+insert into job_profile values ('ANALYST','data analysis');
+insert into job_profile values ('MANAGER','departmental activities');
+insert into job_profile values ('SALESMAN','marketing and sale');
+
+select empno,ename,e.deptno,ename,e.job,profile,sal from emp e join dept d on e.deptno=d.deptno join job_profile p on e.job=p.job 
+
+*********** sub query
+
+* subquery in select clause
+
+1. display empno,ename,sal,avgerage salary (subquery in select )
+select empno,ename,sal,(select round(avg(sal),0) from emp) as AVERAGE_SALARY from emp
+
+2. display empno,ename,sal,deptno , average salary who are getting sal more than average salary 
+select empno,ename,deptno,sal,(select round(avg(sal),2) from emp) as avgsal from emp where sal>(select avg(sal) from emp  ) arranged on deptname
+
+3. display empno,ename,sal,deptno , dept name, average salary who are getting sal more than average salary arranged on dname
+select empno,ename,e.deptno,dname,sal,(select round(avg(sal),2) from emp) as avgsal from emp e join dept d on e.deptno=d.deptno where sal>(select avg(sal) from emp  ) order by dname
+
+*subquery in from clause/ inline view
+4. display empno,ename,sal,bonus,commission (inline view / subquery in from clause)
+select  * from (select empno,ename,sal,comm from emp)  e where comm is not null
+
+(note that if commission column is not included in inline view then no clause can use it.in rest of the query i.e. inline view restricts to use only subquery columns to be used in any clauses)
+
+*** independent subquery
+
+*(subquery returning single row used with = operator)
+5. display empno,ename, sal,deptno who are getting minimum  salary  (subquery in where clause)
+select empno,ename,sal,deptno from emp where sal =(select min(sal) from emp)
+
+6. display empno,ename,deptno, salary who are getting highest salary in the department (subquery in where clause, join)
+select empno,ename,e1.deptno,sal from emp e1  where sal =(select max(sal) from emp e2 where e1.deptno=e2.deptno)
+
+
+* subquery returning single row , nesting of funtions (nesting aggregate function can be done maximum upto 2 levels)
+
+7. display deptno with highest total salary (subquery in having clause)
+select deptno,sum(sal) from emp  group by deptno having sum(sal)=(select max(sum (sal)) from emp group by deptno)
+
+8. display deptno,deptname and highest total salary (subquery in having clause , join)
+select e.deptno,dname,sum(sal) from emp e join dept d on e.deptno=d.deptno group by e.deptno,dname having sum(sal)=(select max(sum(sal)) from emp group by deptno)
+
+
+*(subquery returning multiple rows used with >, < operator)
+9. display empno,ename, sal,deptno who are getting sal more than average salary
+select empno,ename,sal,deptno from emp where sal >(select avg(sal) from emp)
+
+10. display second highest salary
+select max(sal) from emp where sal<(select max(sal) from emp)
+
+11. display employee no,ename getting second highest salary (nested subquery)
+select empno,ename,sal from emp where sal =(select max(sal) from emp where sal< (select max(sal) from emp) )
+
+
+*(subquery returning multiple rows used with in / not in operator)
+12. display employee details for those departments where no. of employees are more then 5 
+select empno,ename,deptno,sal from emp where deptno in (select deptno from emp group by deptno having count(empno)>5)
+
+13. display department details for those departments where no. of employees are more then 2 
+select * from dept where deptno in (select deptno from emp group by deptno having count(empno)>2)
+
+14. display employee as well as department details for those departments where no. of employees are less than 5
+select dept.deptno,dname,empno,ename,sal  from dept join emp on dept.deptno=emp.deptno where emp.deptno in (select deptno from emp group by deptno having count(empno)<5)
+
+15.display employee details for whom departmentno is not allocated
+select * from emp where deptno is null
+
+16. display departments not having employees
+select * from dept  where deptno not in (select deptno from emp where deptno is not null )
+
+
+* subquery eqivalent to join i.e. subquery / join
+(Independent subquery can be replaced by join if it is used with IN clause to fetch foreign keys from another table)
+
+17. display employee details for whom departmentno is allocated
+select empno,ename,deptno,sal from emp where deptno  in (select deptno from dept )
+	or
+select empno,ename,emp.deptno,sal from emp join dept on emp.deptno=dept.deptno
+
+18. display department details for departments having employees  
+select deptno,dname,loc from dept  where deptno  in (select deptno from emp )
+or
+select distinct d.deptno,dname,loc from  dept d join emp e on d.deptno=e.deptno
+
+
+* there may not be a subquery equivalent to join i.e. use of join is mandatory
+A Join cannot be replaced by a subquery if it is using columns from both the tables in SELECT clause. Attributes from subquery tables cannot be accessed in the outer query.
+19.  display employee as well as department details for department having employees
+select d.deptno,dname,loc,empno,ename,sal from  dept d join emp e on d.deptno=e.deptno
+(as above query includes columns from both the tables in select clause subquery cannot be used)
+
+
+* subquery is mandatory
+A Subquery must be used if value of aggregate function is required in where clause.
+
+20. display employee  details for employees having maximum commission (subquery)
+select empno,ename,sal from emp where comm=(select max(comm) from emp)
+
+21. display department details for department having employee with maximum commission (nested subquery)
+select deptno,dname from dept where deptno in (select deptno from emp where comm in (select max(comm) from emp  group by deptno))
+
+22.display employee details and department details with employee having maximum commission (subquery, join)
+select empno,ename,sal,e.deptno,dname,comm from dept d join emp e on e.deptno=d.deptno where comm in (select max(comm) from emp)
+
+

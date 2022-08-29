@@ -1,0 +1,75 @@
+1. display empno, name and sal for employees in dept 20 or 30
+2. display deptno and no. of employees in dept 10 or 20
+3. display deptwise total salary for managers
+4. display empno, ename, salary, deptname and location
+5. display ename,job  and deptname for salesman in dept 10 or 30
+6. display dname and no. of employees in each department
+ 
+**** self join
+
+7. display empno,ename, managerno, managername  (self join)
+ 
+*** multiple inner join 
+
+create table job_profile (job varchar2(9) primary key, profile varchar2(30))
+
+insert into job_profile values ('CLERK','accounts work');
+
+insert into job_profile values ('ANALYST','data analysis');
+insert into job_profile values ('MANAGER','departmental activities');
+insert into job_profile values ('SALESMAN','marketing and sale');
+
+select empno,ename,e.deptno,ename,e.job,profile,sal from emp e join dept d on e.deptno=d.deptno join job_profile p on e.job=p.job 
+
+*********** sub query
+
+* subquery in select clause
+
+1. display empno,ename,sal,avgerage salary (subquery in select )
+2. display empno,ename,sal,deptno , average salary who are getting sal more than average salary 
+3. display empno,ename,sal,deptno , dept name, average salary who are getting sal more than average salary arranged on dname
+
+*subquery in from clause/ inline view
+4. display empno,ename,sal,bonus,commission (inline view / subquery in from clause)
+(note that if commission column is not included in inline view then no clause can use it.in rest of the query i.e. inline view restricts to use only subquery columns to be used in any clauses)
+
+*** independent subquery
+
+*(subquery returning single row used with = operator)
+5. display empno,ename, sal,deptno who are getting minimum  salary  (subquery in where clause)
+6. display empno,ename,deptno, salary who are getting highest salary in the department (subquery in where clause, join)
+
+* subquery returning single row , nesting of funtions (nesting aggregate function can be done maximum upto 2 levels)
+7. display deptno with highest total salary (subquery in having clause)
+8. display deptno,deptname and highest total salary (subquery in having clause , join)
+
+*(subquery returning multiple rows used with >, < operator)
+9. display empno,ename, sal,deptno who are getting sal more than average salary
+10. display second highest salary
+11. display employee no,ename getting second highest salary (nested subquery)
+ 
+*(subquery returning multiple rows used with in / not in operator)
+12. display employee details for those departments where no. of employees are more then 5 
+13. display department details for those departments where no. of employees are more then 2 
+14. display employee as well as department details for those departments where no. of employees are less than 5
+15.display employee details for whom departmentno is not allocated
+16. display departments not having employees
+
+* subquery eqivalent to join i.e. subquery / join
+(Independent subquery can be replaced by join if it is used with IN clause to fetch foreign keys from another table)
+17. display employee details for whom departmentno is allocated  
+18. display department details for departments having employees  
+ 
+* there may not be a subquery equivalent to join i.e. use of join is mandatory
+A Join cannot be replaced by a subquery if it is using columns from both the tables in SELECT clause. Attributes from subquery tables cannot be accessed in the outer query.
+19.  display employee as well as department details for department having employees
+(as above query includes columns from both the tables in select clause subquery cannot be used)
+
+* subquery is mandatory
+A Subquery must be used if value of aggregate function is required in where clause.
+20. display employee  details for employees having maximum commission (subquery)
+21. display department details for department having employee with maximum commission (nested subquery)
+22.display employee details and department details with employee having maximum commission (subquery, join)
+ 
+
+
