@@ -1,0 +1,37 @@
+**till now we have used queries on single table
+real life scenario there will be nultiple tables related to each other. the relation is established through foreign key constraint. or even multiple tables not related with foreign key. 
+
+**to access the data from multiple tables together we will use
+union/interestion/minus
+joins
+subqueries
+
+
+join queries work on multiple tables related to each other
+
+inner join - works on join condition for matching tuples
+outer join - 
+self join - works on same table considered twice
+
+
+cross join / cartesian product- each tuple of one table is extracted with each tuple of second table. so it produces the resultset tuples=tuples in table1 * tuples in table2
+
+select columnlist_from_both_table_with_alias from table_name1 alias1 , table_name2 alias2 
+select columnlist_from_both_tables_with_alias from table1 alias1 inner join table2 alias2 on join_condition
+
+dept(dno,dname) => no. of tuples =3
+emp(eno,ename,sal,dno) => no. of tuples=10
+
+select dno,dname,eno,ename from dept,emp 
+select dno,dname,eno,ename from dept cross join emp
+no. of rows in output =3*10=30
+
+inner join 
+each tuple in table1 is matched with each tuple in second table based on join condition. if match found the data from respective tuples is fetched as specified in select clause
+
+select dept.dno,dname,eno,ename from dept,emp where dept.dno=emp.dno
+select dept.dno,dname,eno,ename from dept inner join emp on dept.dno=emp.dno
+
+select d.dno,dname,eno,ename from dept d,emp e where d.dno=e.dno
+select d.dno,dname,eno,ename from dept d inner join emp e on d.dno=e.dno
+

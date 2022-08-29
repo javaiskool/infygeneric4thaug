@@ -1,0 +1,92 @@
+**AGREEGATE FUNCTIONS
+generally generates statistical summary from the data 
+e.g. sum, avg,count,min,max
+
+**select agregate function from table_name
+for entire table as a single group
+SELECT count(eno),sum(sal),avg(sal),max(sal),min(sal) from emps
+
+**for particular group => deptno,desig,city
+select count(eno) from emps where deptno=101
+
+
+**deptno-wise => total sal
+design-wise => highest paid
+per city => no. of employees
+group by clause
+
+**select column-list (can include group by column_name and aggregate function only ) from table_name group by group_column_name
+
+detailed info display is not supported by group by clause
+
+select deptno,sum(sal) from emps group by deptno
+select desig,max(sal) from emps group by desig
+select city,count(eno) from emps group by city
+
+**group by can be applied to more than one columns. i.e. major group and sub group
+select deptno,desig,count(eno) from emps group by deptno,desig
+here deptno is major group and desig is minor group
+
+
+**WHERE AND GROUP BY TOGETHER
+
+depatment-wise no. of employees in MUM 
+SELECT DEPTNO,COUNT(ENO) FROM EMPS WHERE CITY='MUM' GROUP BY DEPTNO
+
+depatment-wise no. of employees and total salary in MUM 
+select deptno,count(eno),sum(sal) from emps where city='MUM' group by deptno
+
+can i include city? yes 
+select deptno,count(eno),sum(sal),city  from emps where city='MUM' group by deptno,city
+remember here group by city is used only to include city in display, not for statistical analysis
+
+** GROUP BY HAVING
+
+GROUP BY ATTRIBUTE_NAME HAVING CONDITION ON AGGREGATE_FUN
+
+department-wise no of emp and total sal if no.of emp>2
+select deptno,count(eno),SUM(SAL) from emps group by deptno HAVING count(eno)>2
+
+department-wise no of emp and total sal for total_sal>100000
+select deptno,count(eno),SUM(SAL) from emps group by deptno HAVING
+sum(sal)>100000
+
+department-wise no of emp and total sal for deptno 101 or 103
+select deptno,count(eno),SUM(SAL) from emps group by deptno HAVING
+DEPTNO IN (101,103)
+
+**remember that having caluse is used to query the result set generated after group by . the resultset includes the columns specified in select caluse. so having can include conditions based on that column list only.
+
+**if grouping is done on deptno then condition on deptno can be applied using where clause or having clause
+but if condition is to be applied on grouped or summary information then it is to be applied with having clause
+
+select deptno,count(eno),SUM(SAL) from emps  group by deptno having deptno in (101,103)
+select deptno,count(eno),SUM(SAL) from emps  where deptno in (101,103) group by deptno 
+select count(eno),SUM(SAL) from emps  group by deptno having deptno in (101,103)
+
+QUERY EXECUTION ORDER WITH EXAMPLE (FJWGHSDO)
+select DEPTNO,count(eno),sum(sal),avg(sal),max(sal),min(sal) from emps where sal>30000 group by deptno HAVING COUNT(ENO)>2 ORDER BY DEPTNO
+
+ORDER OF QUERY EXECUTION
+FROM => ALL COLUMNS AND ALL ROWS FROM EMPS =>RS1
+WHERE => RS1 WITH TUPLES WITH SAL>30000 =>RS2
+GROUP BY => RS2  WITH AGGREGATE INFO GROUPED ON DEPTNO => RS3
+HAVING => RS3 WITH NO OF EMP>2 => RS4
+SELECT => RS4 WITH SPECIFIED COLUMNS =>RS5
+DISTINCT => RS5 WITH DISTINCT => RS6
+ORDER BY => RS6 WITH ORDER BY (ARRANGED IN SPECIFIED ORDER ASCE/DESC) => RS7
+
+**ORDER BY CALUSE 
+used to arrange the output in ascending or descending order of specified column 
+by default it is ascending
+optionally you can use order by clause to increase redability of the output and to perform easy analysis
+order by should be used as the last clause in the select query
+
+select DEPTNO,COUNT(ENO) no_of_emp FROM EMPS GROUP BY DEPTNO order by count(eno) 
+select DEPTNO,COUNT(ENO) no_of_emp FROM EMPS GROUP BY DEPTNO order by count(eno) desc
+select DEPTNO,COUNT(ENO) no_of_emp FROM EMPS GROUP BY DEPTNO order by deptno
+select DEPTNO,COUNT(ENO) no_of_emp FROM EMPS GROUP BY DEPTNO order by deptno desc
+select DEPTNO,COUNT(ENO) no_of_emp FROM EMPS GROUP BY DEPTNO order by sum(sal) => not recomended as it is not useful and meaningful
+
+** aggregate functions cannot be used with where clause
+

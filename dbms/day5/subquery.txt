@@ -1,0 +1,80 @@
+**WE CANNOT USE AGGREGATE FUNCTIONS IN WHERE CLAUSE
+** WHEN WE AGGREGATE FUNCTIONS WE CANNOT DISPLAY DETAIL INFORMATION
+
+REQUIREMENT : DISPLAY EMPLOYEENO,EMPNAMES WHO ARE GETTING SALARY MORE THAN AVERAGE SALARY 
+
+select avg(sal) from emp => 52000
+selecct eno,ename from emp where sal>52000
+can i write songle statement for above requirement? yes
+using subquery
+select eno,ename from emp where sal>(select avg(sal) from emp)
+1. execution of inner query =>select avg(sal) from emp => 52000
+2. substitution of inner query result inthe outer query => selecct eno,ename from emp where sal>52000
+3. execution of outer query
+
+query within a query
+subquery should be enclosed in ()
+
+select, from, where, having
+
+select & from used rarely
+
+where clause very frequently
+two types independent subquery, correlated subquery
+
+outer query and inner query can be excuted independently
+inner query is executed first, its result is substituted in the outer query and then the outer query is executed.
+
+
+
+
+** subquery
+
+** query nested in another query. 
+
+** subquey should be written in ()
+
+** subquery can be used in select, from, where, having clause
+
+** subquery in select, from is rarely used
+
+** subquery in select clause can return single value(single row & single column) and should have alias name
+	for example fetching detailed and aggregate data together for each row
+	the generated value is shown as additional attribute for each resultant row
+
+** subquery in from clause is called as inline view and should have alias name
+	subquery filters specified columns from the table which are used by parent query
+
+
+** subquey in where, having are of two types
+independent subquery, correlated subquery
+
+
+** independent subquery
+
+** inner and outer query can be executed independently
+
+** independent subquery may reurn single row or multiple rows
+
+
+** single row independent subquery uses = operator for comparison
+	example with where clause
+	SELECT Id, EName, Salary, Dept FROM Employee E1 WHERE Salary = (SELECT MAX(Salary) FROM Employee E2)
+
+	example with having clause ( aggregate functions) nesting of aggregate functions can be upto 2 levels 
+SELECT DEPT FROM Employee GROUP BY DEPT HAVING SUM(Salary) = (SELECT MAX(SUM(Salary)) FROM Employee GROUP BY Dept)
+
+** multiple row independent subquery uses in operator   for comparison
+SELECT CompId, Make, Model FROM Computer WHERE CompId IN (SELECT CompId FROM Employee);
+
+
+** if independent subquery uses IN clause to fetch foreign keys from another table, it can be replaced by join.
+SELECT C.CompId, Make, Model FROM Computer C, Employee E WHERE E.CompId = C.CompId
+
+
+** if select caluse fetches data from columns of multiple tables then it can be written with join not subquery
+
+** attributes from subquery cannot be accessed in outer query
+
+** if where clause uses aggregate function then it can be written using subquery not join
+

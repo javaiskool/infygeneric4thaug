@@ -1,0 +1,21 @@
+create table dept (dno number,dname varchar2(10))
+create table emp(eno number,ename varchar2(10),sal number(12,2),dno number)
+
+**cross join
+SELECT * FROM EMP CROSS JOIN DEPT
+SELECT * FROM EMP ,DEPT
+SELECT DNO,DNAME,ENO,ENAME FROM EMP,DEPT
+SELECT DNO,DNAME,ENO,ENAME FROM EMP cross join DEPT
+
+**inner join
+
+select dname,eno,ename from emp, dept where emp.dno=dept.dno
+select dept.dno,dname,eno,ename from emp, dept where emp.dno=dept.dno
+select d.dno,dname,eno,ename from emp e, dept  d where e.dno=d.dno
+select d.dno,dname,eno,ename from emp e, dept  d where e.dno=d.dno where sal>30000
+
+
+select d.dno,dname,eno,ename from emp e inner join dept  d on e.dno=d.dno
+
+select d.dno,dname,eno,ename from emp e inner join dept  d on e.dno=d.dno where sal>30000
+select d.dno,dname,eno,ename from emp e inner join dept  d on e.dno=d.dno and sal>30000
